@@ -2,9 +2,16 @@ name: Build APK
 on:
   push:
   workflow_dispatch:
+
+# Needed so the "commit APK" step below can push back to this repo.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Don't re-trigger ourselves when the bot commit (with [skip ci]) lands.
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - uses: actions/checkout@v4
 
@@ -36,3 +43,18 @@ jobs:
         with:
           name: CustomAOD-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      # Artifacts above are convenient in the GitHub UI, but some download
+      # clients can't reach the blob-storage host they're served from.
+      # Committing the APK straight into the repo makes it fetchable over
+      # plain git instead, which has no such restriction.
+      - name: Commit APK into the repo
+        run: |
+          set -e
+          mkdir -p release
+          cp app/build/outputs/apk/debug/app-debug.apk release/CustomAOD-debug.apk
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add release/CustomAOD-debug.apk
+          git diff --staged --quiet && echo "No change to APK" || git commit -m "ci: update built debug APK [skip ci]"
+          git push
