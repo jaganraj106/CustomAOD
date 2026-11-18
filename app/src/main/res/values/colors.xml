@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AMOLED palette: true black means those pixels are switched off. -->
+    <color name="aod_black">#FF000000</color>
+    <color name="aod_white">#FFFFFFFF</color>
+    <color name="aod_dim_text">#99FFFFFF</color>
+
+    <color name="surface_dark">#FF0A0A0C</color>
+    <color name="card_dark">#FF15151A</color>
+    <color name="card_stroke">#FF26262E</color>
+
+    <!-- Neon accents (Funtouch-inspired). -->
+    <color name="neon_cyan">#FF00E5FF</color>
+    <color name="neon_magenta">#FFFF2BD6</color>
+    <color name="neon_lime">#FFB6FF3B</color>
+    <color name="neon_blue">#FF4D7CFF</color>
+    <color name="neon_orange">#FFFF9A3D</color>
+    <color name="neon_red">#FFFF4D5E</color>
+
+    <color name="launcher_background">#FF000000</color>
+</resources>

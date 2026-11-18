@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Large rounded corners for every card. -->
+    <style name="ShapeAppearance.CustomAOD.Card" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <!-- Main app theme: Material 3 dark with AMOLED black surfaces. -->
+    <style name="Theme.CustomAOD" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/neon_cyan</item>
+        <item name="colorOnPrimary">@color/aod_black</item>
+        <item name="colorPrimaryContainer">#FF003A42</item>
+        <item name="colorOnPrimaryContainer">@color/neon_cyan</item>
+        <item name="colorSecondary">@color/neon_magenta</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorSurfaceVariant">@color/card_dark</item>
+        <item name="colorOnSurface">@color/aod_white</item>
+        <item name="colorOutline">@color/card_stroke</item>
+        <item name="android:colorBackground">@color/aod_black</item>
+        <item name="android:windowBackground">@color/aod_black</item>
+        <item name="android:statusBarColor">@color/aod_black</item>
+        <item name="android:navigationBarColor">@color/aod_black</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.CustomAOD.Card</item>
+    </style>
+
+    <!-- AOD screen: pure black, edge-to-edge, no decorations. -->
+    <style name="Theme.CustomAOD.Aod" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@color/aod_black</item>
+        <item name="android:colorBackground">@color/aod_black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="28">shortEdges</item>
+        <item name="android:windowAnimationStyle">@style/Animation.CustomAOD.Fade</item>
+    </style>
+
+    <!-- Smooth fade in/out when the AOD appears or disappears. -->
+    <style name="Animation.CustomAOD.Fade" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+</resources>

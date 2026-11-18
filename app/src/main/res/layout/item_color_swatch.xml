@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Root view IS the swatch; its tint is set in the adapter. -->
+<View xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swatch"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_margin="6dp"
+    android:background="@drawable/bg_color_swatch"
+    android:clickable="true"
+    android:focusable="true" />
