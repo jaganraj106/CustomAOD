@@ -7,16 +7,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
+
+      # ubuntu-latest already ships an Android SDK at $ANDROID_HOME with a
+      # cmdline-tools directory (its exact version subfolder varies by image,
+      # so it's located dynamically instead of hardcoded). We just need to
+      # accept licenses and make sure platform 34 / build-tools 34 are present.
+      - name: Accept SDK licenses and install platform 34
+        run: |
+          set -e
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -maxdepth 3 -name sdkmanager -type f | sort -r | head -1)"
+          echo "Using sdkmanager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
+          "$SDKMANAGER" "platforms;android-34" "build-tools;34.0.0"
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.5'
+
       - name: Build debug APK (auto-signed, installable)
-        run: gradle assembleDebug --no-daemon
+        run: gradle assembleDebug --no-daemon --stacktrace
+
       - uses: actions/upload-artifact@v4
         with:
           name: CustomAOD-debug-apk
